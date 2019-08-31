@@ -50,7 +50,7 @@ var madrid = {
     },
     {
       id: '14',
-      name: 'Modric',
+      name: 'Luka Modric',
       position: POSITIONS_ID.midfielder,
       url: 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2019/05/22/15585438479360.jpg',
       price: 400,
@@ -67,14 +67,14 @@ var barcelona = {
   players: [
     {
       id: '21',
-      name: 'Messi',
+      name: 'Lionel Messi',
       position: POSITIONS_ID.forward,
       img: 'https://www.diariogol.com/uploads/s1/64/71/53/0/leo-messi_15_970x597.jpeg',
       price: 1000000000,
     },
     {
       id: '22',
-      name: 'Pique',
+      name: 'Gerard Piqué',
       position: POSITIONS_ID.back,
       img: 'https://www.mundodeportivo.com/r/GODO/MD/p6/Barca/Imagenes/2019/06/20/Recortada/img_ppunti_20190313-231329_imagenes_md_propias_ppunti_190313fcbol1045_4_6_1019829284-0048-keaF-U463011134387hWC-980x554@MundoDeportivo-Web.jpg',
       price: 500,
@@ -88,7 +88,7 @@ var barcelona = {
     },
     {
       id: '24',
-      name: 'Busquets',
+      name: 'Sergio Busquets',
       position: POSITIONS_ID.midfielder,
       img: 'https://fcbarcelona-static-files.s3.amazonaws.com/fcbarcelona/photo/2018/09/21/3c326e62-2c35-4d8d-9e41-972ab88ce11a/05-SERGIO-JOC.jpg',
       price: 500,
@@ -98,26 +98,26 @@ var barcelona = {
 
 var atletico = {
   id: '3',
-  name: 'Atérico de Madrid',
-  shortName: 'Atético',
+  name: 'Atlético de Madrid',
+  shortName: 'Atlético',
   shield: '//as01.epimg.net/img/comunes/fotos/fichas/equipos/large/42.png',
   money: 700,
   players: [
     {
       id: '31',
-      name: 'Griezman',
+      name: 'Antoine Griezmann',
       position: POSITIONS_ID.forward,
       price: 700,
     },
     {
       id: '32',
-      name: 'Godin',
+      name: 'Diego Godín',
       position: POSITIONS_ID.back,
       price: 450,
     },
     {
       id: '33',
-      name: 'Oblak',
+      name: 'Jan Oblak',
       position: POSITIONS_ID.goalkeeper,
       price: 500,
     },
@@ -220,7 +220,22 @@ app.get('/players', function (req, res) {
   // ]
   // TIP: familiarizate primero con los objetos de los equipos: var madrid, barcelona y atletico.
   // TIP2: asegurate que position no es el código de la posición, si no el string
-  res.json({})
+  var madridTemp = { ...madrid }
+  var barsaTemp = { ...barcelona }
+  var atleticoTemp = { ...atletico }
+  madridTemp.players.forEach(player => {
+    player.teamId = madridTemp.id
+    player.position = POSITIONS_STRING[player.position]
+  })
+  barsaTemp.players.forEach(player => {
+    player.teamId = atleticoTemp.id
+    player.position = POSITIONS_STRING[player.position]
+  })
+  atleticoTemp.players.forEach(player => {
+    player.teamId = barsaTemp.id
+    player.position = POSITIONS_STRING[player.position]
+  })
+  res.json(madridTemp.players.concat(barsaTemp.players).concat(atleticoTemp.players))
 });
 
 app.get('/pichichis', function (req, res) {
