@@ -7,7 +7,7 @@ import reactSvg from '../react.svg'
 const domain = 'http://localhost:3001'
 
 class App extends PureComponent {
-  state = { players: [], teams: [] }
+  state = { players: [], teams: [], pichichis: [] }
 
   componentDidMount() {
     fetch(`${domain}/players`).then(response => {
@@ -20,6 +20,12 @@ class App extends PureComponent {
       return response.json();
     }).then(teams => {
       this.setState({teams})
+    });
+
+    fetch(`${domain}/pichichis`).then(response => {
+      return response.json();
+    }).then(pichichis => {
+      this.setState({pichichis})
     });
   }
 
@@ -65,7 +71,7 @@ class App extends PureComponent {
         <img className="App-logo" src={reactSvg}/>
         <p>Edit <code>src/App.js</code> and save to hot reload your changes.</p>
       </div>
-      <Pichichis />
+      <Pichichis pichichis={this.state.pichichis} players={this.state.players} />
     </div>
   }
 }
