@@ -1,0 +1,22 @@
+.player {
+  min-width: 280px;
+  flex: 0 30%;
+  margin-bottom: 2%;
+  border-radius: 5px;
+  border: 1px solid #cdcdcd;
+  padding: 20px;
+  position: relative;
+}
+
+.player .avatar {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+}
+
+.player .shield {
+  width: 35px;
+  height: 35px;
+  right: 20px;
+  position: absolute;
+}

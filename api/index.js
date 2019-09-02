@@ -38,21 +38,21 @@ var madrid = {
       id: '12',
       name: 'Sergio Ramos',
       position: POSITIONS_ID.back,
-      url: 'https://www.lainformacion.com/files/article_default_content/uploads/2018/11/23/5bf84292d23b5.jpeg',
+      img: 'https://www.lainformacion.com/files/article_default_content/uploads/2018/11/23/5bf84292d23b5.jpeg',
       price: 10000000000,
     },
     {
       id: '13',
       name: 'Thibaut Courtois',
       position: POSITIONS_ID.goalkeeper,
-      url: 'https://as01.epimg.net/futbol/imagenes/2019/02/12/primera/1549968203_746773_1549968422_noticia_normal.jpg',
+      img: 'https://as01.epimg.net/futbol/imagenes/2019/02/12/primera/1549968203_746773_1549968422_noticia_normal.jpg',
       price: 300,
     },
     {
       id: '14',
       name: 'Luka Modric',
       position: POSITIONS_ID.midfielder,
-      url: 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2019/05/22/15585438479360.jpg',
+      img: 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2019/05/22/15585438479360.jpg',
       price: 400,
     },
   ]
@@ -83,7 +83,7 @@ var barcelona = {
       id: '23',
       name: 'Marc-André ter Stegen',
       position: POSITIONS_ID.goalkeeper,
-      url: 'https://images2.minutemediacdn.com/image/upload/c_fill,w_912,h_516,f_auto,q_auto,g_auto/shape/cover/sport/fc-barcelona-v-fc-internazionale-uefa-champions-league-group-b-5bd2c9a723006a5f6d000006.jpg',
+      img: 'https://images2.minutemediacdn.com/image/upload/c_fill,w_912,h_516,f_auto,q_auto,g_auto/shape/cover/sport/fc-barcelona-v-fc-internazionale-uefa-champions-league-group-b-5bd2c9a723006a5f6d000006.jpg',
       price: 400,
     },
     {
@@ -107,34 +107,31 @@ var atletico = {
       id: '31',
       name: 'Antoine Griezmann',
       position: POSITIONS_ID.forward,
+      img: 'https://fotografias.lasexta.com/clipping/cmsimages01/2019/02/07/81CE3BC8-905E-4904-92F7-B4D6A27B8963/58.jpg',
       price: 700,
     },
     {
       id: '32',
       name: 'Diego Godín',
       position: POSITIONS_ID.back,
+      img: 'https://as01.epimg.net/futbol/imagenes/2017/10/18/primera/1508362211_900651_1508362332_noticia_normal.jpg',
       price: 450,
     },
     {
       id: '33',
       name: 'Jan Oblak',
       position: POSITIONS_ID.goalkeeper,
+      img: 'https://cadenaser00.epimg.net/ser/imagenes/2018/11/12/deportes/1542055161_970998_1542057866_noticia_normal_recorte1.jpg',
       price: 500,
     },
     {
       id: '34',
       name: 'Koke',
       position: POSITIONS_ID.midfielder,
+      img: 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2017/04/07/14915594564824.jpg',
       price: 10000000000000,
     },
   ]
-}
-
-var atleticoImages = {
-  31: 'https://fotografias.lasexta.com/clipping/cmsimages01/2019/02/07/81CE3BC8-905E-4904-92F7-B4D6A27B8963/58.jpg',
-  32: 'https://as01.epimg.net/futbol/imagenes/2017/10/18/primera/1508362211_900651_1508362332_noticia_normal.jpg',
-  33: 'https://cadenaser00.epimg.net/ser/imagenes/2018/11/12/deportes/1542055161_970998_1542057866_noticia_normal_recorte1.jpg',
-  34: 'https://e00-marca.uecdn.es/assets/multimedia/imagenes/2017/04/07/14915594564824.jpg',
 }
 
 var pichichis = [
@@ -224,16 +221,16 @@ app.get('/players', function (req, res) {
   var barsaTemp = { ...barcelona }
   var atleticoTemp = { ...atletico }
   madridTemp.players.forEach(player => {
-    player.teamId = madridTemp.id
     player.position = POSITIONS_STRING[player.position]
+    player.teamId = madridTemp.id
   })
   barsaTemp.players.forEach(player => {
-    player.teamId = atleticoTemp.id
     player.position = POSITIONS_STRING[player.position]
+    player.teamId = barsaTemp.id
   })
   atleticoTemp.players.forEach(player => {
-    player.teamId = barsaTemp.id
     player.position = POSITIONS_STRING[player.position]
+    player.teamId = atleticoTemp.id
   })
   res.json(madridTemp.players.concat(barsaTemp.players).concat(atleticoTemp.players))
 });

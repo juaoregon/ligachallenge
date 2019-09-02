@@ -15,11 +15,24 @@
 }
 
 .App-heading {
-  background-color: #222;
-  color: #f8f8f8;
+  background-color: #eee;
+  color: #eee;
+  padding: 10px 1%;
   font-size: 6vh;
-  box-shadow: 0px 4px 4vh 4px rgba(34,34,34,0.9);
   z-index: 2;
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.App-heading a {
+  float: right;
+  text-decoration: none;
+  font-size: 13px;
+  color: #000;
+  border: 1px solid #000;
+  padding: 5px 12px;
+  border-radius: 50px;
 }
 
 .App-react {
@@ -47,6 +60,8 @@
   border-radius: .2em;
 }
 
-.App-teams {
-  flex-direction: column;
+.App-players {
+  padding: 60px 1% 0 1%;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }

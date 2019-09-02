@@ -1,13 +1,12 @@
 import React, {PureComponent} from 'react'
+import Player from './Player'
 import './App.css'
-import reactSvg from './react.svg'
+import reactSvg from '../react.svg'
 
 const domain = 'http://localhost:3001'
 
 class App extends PureComponent {
-  state = {
-    players: []
-  }
+  state = { players: [], teams: [] }
 
   componentDidMount() {
     fetch(`${domain}/players`).then(response => {
@@ -15,16 +14,20 @@ class App extends PureComponent {
     }).then(players => {
       this.setState({players})
     });
+
+    fetch(`${domain}/teams`).then(response => {
+      return response.json();
+    }).then(teams => {
+      this.setState({teams})
+    });
   }
 
   render() {
-    const {players} = this.state
-
     return <div className="App">
-      <header className="App-heading App-flex">
-        <h2>Bienvenido a la prueba de los equipos</h2>
+      <header className="App-heading">
+        <a href="/">Pichichis</a>
       </header>
-      <div className="App-teams App-flex">
+      <div className="App-players App-flex">
         {/*
           TODO ejercicio 2
           Debes obtener los players en lugar de los equipos y pintar su nombre.
@@ -33,16 +36,15 @@ class App extends PureComponent {
           ** Los comentarios de los ejercicios no los borres.
         */
         }
-        <h3>Los jugadores:</h3>
-        <ul>
-          {/*
-            TODO ejercicio 3
-            Vamos a pasar a darle diseño. Crea el diseño propuesto en el readme con los requerimientos que se necesite.
-            Guiate por las imágenes.
-           */
-          }
-          {players.map(player => <li key={player.id}>{player.name}</li>)}
-        </ul>
+        {/*
+          TODO ejercicio 3
+          Vamos a pasar a darle diseño. Crea el diseño propuesto en el readme con los requerimientos que se necesite.
+          Guiate por las imágenes.
+         */
+        }
+        {this.state.players.map(player =>
+          <Player key={player.id} player={player} team={this.state.teams.find(team => {return player.teamId === team.id})}
+        />)}
       </div>
       <div className="App-instructions App-flex">
         <img className="App-logo" src={reactSvg}/>
