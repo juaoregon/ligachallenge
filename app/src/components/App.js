@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react'
 import Player from './Player'
+import Pichichis from './Pichichis'
 import './App.css'
 import reactSvg from '../react.svg'
 
@@ -22,10 +23,24 @@ class App extends PureComponent {
     });
   }
 
+  onClickPichichis = event => {
+    document.querySelector('.pichichis').style.display = 'block';
+
+    document.querySelector('.close').onclick = () => {
+      document.querySelector('.pichichis').style.display = 'none';
+    }
+
+    window.onclick = event => {
+      if (event.target == document.querySelector('.pichichis')) {
+        document.querySelector('.pichichis').style.display = 'none';
+      }
+    }
+  }
+
   render() {
     return <div className="App">
       <header className="App-heading">
-        <a href="/">Pichichis</a>
+        <a onClick={this.onClickPichichis}>Pichichis</a>
       </header>
       <div className="App-players App-flex">
         {/*
@@ -50,6 +65,7 @@ class App extends PureComponent {
         <img className="App-logo" src={reactSvg}/>
         <p>Edit <code>src/App.js</code> and save to hot reload your changes.</p>
       </div>
+      <Pichichis />
     </div>
   }
 }
