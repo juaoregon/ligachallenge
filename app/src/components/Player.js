@@ -1,15 +1,21 @@
 import React from 'react';
 import './Player.css';
 
-const Player = ({player, team}) => {
-  return(
-    <div className="player">
-      <img className="avatar" alt={player.name} src={player.img} />
-      <img className="shield" src={team.shield}/>
-      <h1>{player.name} <b>{player.position}</b></h1>
-      <p>{team.name}</p>
-    </div>
-  );
+class Player extends React.Component {
+  onSelectPlayer = event => {
+    this.props.onSelectPlayer(this.props.player);
+  }
+
+  render() {
+    return(
+      <div onClick={this.onSelectPlayer} className="player">
+        <img className="avatar" alt={this.props.player.name} src={this.props.player.img} />
+        <img className="shield" src={this.props.team.shield}/>
+        <h1>{this.props.player.name} <b>{this.props.player.position}</b></h1>
+        <p>{this.props.team.name}</p>
+      </div>
+    );
+  }
 }
 
 Player.defaultProps = {

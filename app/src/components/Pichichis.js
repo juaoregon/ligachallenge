@@ -1,4 +1,5 @@
 import React from 'react';
+import '../index.css';
 import './Pichichis.css';
 
 class Pichichis extends React.Component {

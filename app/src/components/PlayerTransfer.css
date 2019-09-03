@@ -1,0 +1,46 @@
+.transfer-content {
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+
+.accept {
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 15px;
+  padding: 5px 15px;
+  display: inline-block;
+  margin: 20px;
+}
+
+.down {
+  transform: rotate(45deg);
+  margin-top: 10px;
+}
+
+.selectedPlayerTeam-shield {
+  height: 50px;
+  width: 50px;
+}
+
+.selectedPlayer-team {
+  margin: 10px;
+}
+
+.select {
+  display: block;
+  margin: 20px auto;
+  height: 34px;
+  width: 240px;
+}
+
+.select .select-team {
+  border: 1px solid #ccc;
+  font-size: 16px;
+  height: 34px;
+  width: 268px;
+}

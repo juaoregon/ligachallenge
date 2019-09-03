@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react'
 import Player from './Player'
 import Pichichis from './Pichichis'
+import PlayerTransfer from './PlayerTransfer'
 import './App.css'
 import reactSvg from '../react.svg'
 
@@ -12,7 +13,10 @@ class App extends PureComponent {
     this.state = {
       players: JSON.parse(localStorage.getItem('players')) || [],
       teams: JSON.parse(localStorage.getItem('teams')) || [],
-      pichichis: JSON.parse(localStorage.getItem('pichichis')) || []
+      pichichis: JSON.parse(localStorage.getItem('pichichis')) || [],
+      selectedPlayer: {
+        teamId: null
+      }
     }
     this.sortTable = this.sortPichichis.bind(this)
   }
@@ -47,7 +51,7 @@ class App extends PureComponent {
   onClickPichichis = event => {
     document.querySelector('.pichichis').style.display = 'block';
 
-    document.querySelector('.close').onclick = () => {
+    document.querySelector('.pichichis .close').onclick = () => {
       document.querySelector('.pichichis').style.display = 'none';
     }
 
@@ -56,6 +60,40 @@ class App extends PureComponent {
         document.querySelector('.pichichis').style.display = 'none';
       }
     }
+  }
+
+  selectPlayer = selectedPlayer => {
+    this.setState({selectedPlayer})
+    document.querySelector('.transfer').style.display = 'block';
+
+    document.querySelector('.transfer .close').onclick = () => {
+      document.querySelector('.transfer').style.display = 'none';
+    }
+
+    window.onclick = event => {
+      if (event.target == document.querySelector('.transfer')) {
+        document.querySelector('.transfer').style.display = 'none';
+      }
+    }
+  }
+
+  acceptTransfer = selectedTeam => {
+    var data = {
+      playerId: this.state.selectedPlayer.id,
+      teamId: selectedTeam.id
+    }
+
+    fetch(`${domain}/transfer`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .catch(error => console.log('Error:', error))
+    .then(response => console.log('Success:', response));
+
+    document.querySelector('.transfer').style.display = 'none';
   }
 
   sortPichichis = direction => {
@@ -95,10 +133,21 @@ class App extends PureComponent {
            */
           }
           {this.state.players.map(player =>
-            <Player key={player.id} player={player} team={this.state.teams.find(team => {return player.teamId === team.id})}
-          />)}
+            <Player
+              onSelectPlayer={this.selectPlayer}
+              key={player.id}
+              player={player}
+              team={this.state.teams.find(team => {return player.teamId === team.id})}
+            />)
+          }
         </div>
         <Pichichis onSort={this.sortPichichis} pichichis={this.state.pichichis} />
+        <PlayerTransfer
+          player={this.state.selectedPlayer}
+          selectedPlayerTeam={this.state.teams.find(team => {return this.state.selectedPlayer.teamId === team.id})}
+          teams={this.state.teams.filter(team => {return this.state.selectedPlayer.teamId != team.id})}
+          onAcceptTransfer={this.acceptTransfer}
+        />
       </div>
     );
   }
