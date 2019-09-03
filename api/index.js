@@ -137,7 +137,7 @@ var atletico = {
 var pichichis = [
   {
     playerId: '11',
-    goals: '19',
+    goals: 19,
   },
   {
     playerId: '12',
@@ -149,7 +149,7 @@ var pichichis = [
   },
   {
     playerId: '14',
-    goals: '9 goles',
+    goals: 9,
   },
   {
     playerId: '21',
@@ -157,7 +157,7 @@ var pichichis = [
   },
   {
     playerId: '22',
-    goals: ' 5',
+    goals: 5,
   },
   {
     playerId: '23',
@@ -165,6 +165,7 @@ var pichichis = [
   },
   {
     playerId: '24',
+    goals: 0,
   },
   {
     playerId: '31',
@@ -176,7 +177,7 @@ var pichichis = [
   },
   {
     playerId: '33',
-    goals: null,
+    goals: 0,
   },
   {
     playerId: '34',

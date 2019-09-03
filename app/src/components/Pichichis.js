@@ -1,28 +1,30 @@
 import React from 'react';
 import './Pichichis.css';
 
-const Pichichis = ({pichichis, players}) => {
-  const pichichisList = () => {
-    let res = [];
-    pichichis.forEach((pichichi, i) => {
-      res.push(Object.assign({}, pichichi, players[i]));
-    })
-    return res;
+class Pichichis extends React.Component {
+  state = {sortDirection: 'none'};
+
+  onSort = event => {
+    this.props.onSort(this.state.sortDirection);
+    this.setState({ sortDirection: this.state.sortDirection === 'asc' ? 'desc' : 'asc' });
   }
-  return(
-    <div className="pichichis">
-      <div className="pichichis-content">
-        <span className="close">&times;</span>
-        {pichichisList().map(pichichi =>
-          <div key={pichichi.id} className=''>{pichichi.name}: {pichichi.goals} Goles</div>)}
+
+  render() {
+    return(
+      <div className="pichichis">
+        <div className="pichichis-content">
+          <a className="sort" onClick={this.onSort}>Ordenar <i className={`arrow ${this.state.sortDirection}`}></i></a>
+          <span className="close">&times;</span>
+          {this.props.pichichis.map(pichichi =>
+            <div key={pichichi.id} className=''>{pichichi.name}: {pichichi.goals} Goles</div>)}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 Pichichis.defaultProps = {
-  pichichis: [],
-  players: []
+  pichichis: []
 }
 
 export default Pichichis;

@@ -7,7 +7,11 @@ import reactSvg from '../react.svg'
 const domain = 'http://localhost:3001'
 
 class App extends PureComponent {
-  state = { players: [], teams: [], pichichis: [] }
+  constructor(props) {
+    super(props);
+    this.state = { players: [], teams: [], pichichis: [] }
+    this.sortTable = this.sortPichichis.bind(this)
+  }
 
   componentDidMount() {
     fetch(`${domain}/players`).then(response => {
@@ -25,7 +29,11 @@ class App extends PureComponent {
     fetch(`${domain}/pichichis`).then(response => {
       return response.json();
     }).then(pichichis => {
-      this.setState({pichichis})
+      let pichichisList = [];
+      pichichis.forEach((pichichi, i) => {
+        pichichisList.push(Object.assign({}, pichichi, this.state.players[i]));
+      })
+      this.setState({pichichis: pichichisList});
     });
   }
 
@@ -41,6 +49,21 @@ class App extends PureComponent {
         document.querySelector('.pichichis').style.display = 'none';
       }
     }
+  }
+
+  sortPichichis = direction => {
+    const sortedPichichis = this.state.pichichis.sort((a,b) => {
+      const valueA = a.goals;
+      const valueB = b.goals;
+      let res = 0;
+      if (direction === 'asc') {
+        res = (valueA < valueB) ? -1 : (valueA > valueB) ? 1 : 0;
+      } else if (direction === 'desc' || direction === 'none') {
+        res = (valueA > valueB) ? -1 : (valueA < valueB) ? 1 : 0;
+      }
+      return res;
+    });
+    this.setState({ pichichis: sortedPichichis });
   }
 
   render() {
@@ -71,7 +94,7 @@ class App extends PureComponent {
         <img className="App-logo" src={reactSvg}/>
         <p>Edit <code>src/App.js</code> and save to hot reload your changes.</p>
       </div>
-      <Pichichis pichichis={this.state.pichichis} players={this.state.players} />
+      <Pichichis onSort={this.sortPichichis} pichichis={this.state.pichichis} />
     </div>
   }
 }

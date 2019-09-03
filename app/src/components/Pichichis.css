@@ -32,3 +32,32 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.sort {
+  cursor: pointer;
+  border: 1px solid #000;
+  border-radius: 15px;
+  padding: 5px 15px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  margin-left: 3px;
+}
+
+.none {
+  display: none;
+}
+
+.asc {
+  transform: rotate(-135deg);
+}
+
+.desc {
+  transform: rotate(45deg);
+}
